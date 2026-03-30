@@ -303,8 +303,11 @@ function buildDashboard(sh) {
   sh.getRange('F7').setFontWeight('bold').setFontColor(DK_TEXT);
   sh.getRange('I7').setFontWeight('bold').setFontColor(DK_TEXT);
 
-  var mf = 'MONTH(DATEVALUE("1 "&$B$5))';
-  var yf = 'YEAR(DATEVALUE("1 "&$B$5))';
+  // Helper cells: T3 = month number, U3 = year number (locale-safe, no DATEVALUE)
+  sh.getRange('T3').setFormula('=MATCH(LEFT(B5,3),{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"},0)');
+  sh.getRange('U3').setFormula('=VALUE(RIGHT(B5,4))');
+  var mf = '$T$3';
+  var yf = '$U$3';
   var base = "=IFERROR(SUMIFS('Transactions Log'!F:F,'Transactions Log'!C:C,\"Expense\",'Transactions Log'!D:D,\"{B}\",'Transactions Log'!G:G,"+mf+",'Transactions Log'!H:H,"+yf+"),0)";
 
   sh.getRange('C7').setFormula(base.replace('{B}','Needs'));
