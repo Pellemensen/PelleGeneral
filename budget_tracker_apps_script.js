@@ -149,8 +149,9 @@ function buildSettings(sh) {
   // ── Category mapping header ──
   sh.getRange('A7:B7').setValues([['Category Name','Bucket']]);
 
-  // ── Category rows ──
+  // ── Category rows (income first so they appear in the dropdown) ──
   var mapping = [];
+  INCOME_CATS.forEach(function(c)  { mapping.push([c,'Income']); });
   NEEDS_CATS.forEach(function(c)   { mapping.push([c,'Needs']); });
   WANTS_CATS.forEach(function(c)   { mapping.push([c,'Wants']); });
   SAVINGS_CATS.forEach(function(c) { mapping.push([c,'Savings & Debt']); });
@@ -202,7 +203,7 @@ function buildLog(sh) {
     var r = i + 2;
     return [
       tx[0], tx[1], tx[2],
-      '=IFERROR(VLOOKUP(E'+r+',Settings!$A$8:$B$40,2,FALSE),"")',
+      '=IFERROR(VLOOKUP(E'+r+',Settings!$A$8:$B$55,2,FALSE),"")',
       tx[4], tx[5],
       '=IF(A'+r+'="","",MONTH(A'+r+'))',
       '=IF(A'+r+'="","",YEAR(A'+r+'))',
@@ -237,13 +238,13 @@ function buildLog(sh) {
       .requireValueInList(['Income','Expense'], true)
       .setAllowInvalid(false).build()
   );
-  // Category dropdown from Settings
+  // Category dropdown from Settings (warning mode so script can set income categories)
   sh.getRange(2,5,199,1).setDataValidation(
     SpreadsheetApp.newDataValidation()
       .requireValueInRange(
-        SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Settings').getRange('A8:A40'),
+        SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Settings').getRange('A8:A55'),
         true
-      ).setAllowInvalid(false).build()
+      ).setAllowInvalid(true).build()
   );
 
   // ── Conditional formatting ──
