@@ -139,6 +139,7 @@ function buildReference(sh) {
 function buildSettings(sh) {
   sh.clearContents();
   sh.clearFormats();
+  sh.getRange(1, 1, sh.getMaxRows(), sh.getMaxColumns()).clearDataValidations();
 
   // ── Ratio section ──
   sh.getRange('A1').setValue('BUDGET RATIOS');
@@ -194,6 +195,8 @@ function buildSettings(sh) {
 function buildLog(sh) {
   sh.clearContents();
   sh.clearFormats();
+  // Clear any leftover data validations from a previous run
+  sh.getRange(1, 1, sh.getMaxRows(), sh.getMaxColumns()).clearDataValidations();
 
   // ── Headers ──
   sh.getRange('A1:I1').setValues([['Date','Description','Type','Bucket','Category','Amount','Month','Year','Notes']]);
@@ -263,6 +266,7 @@ function buildLog(sh) {
 function buildDashboard(sh) {
   sh.clearContents();
   sh.clearFormats();
+  sh.getRange(1, 1, sh.getMaxRows(), sh.getMaxColumns()).clearDataValidations();
 
   // ── Background ──
   sh.getRange(1, 1, 80, 25).setBackground(OFF_WHITE);
