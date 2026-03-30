@@ -285,7 +285,7 @@ function buildDashboard(sh) {
   sh.getRange('H7').setValue('SAVINGS & DEBT').setFontWeight('bold').setFontColor(DK_TEXT);
 
   // KPI formulas — using setFormula to avoid locale issues
-  var mf = 'MATCH(LEFT($B$5,3),{"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"},0)';
+  var mf = 'MATCH(UPPER(LEFT($B$5,3)),{"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"},0)';
   var yf = 'VALUE(RIGHT($B$5,4))';
   function kpif(bucket) {
     return '=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!C:C,"Expense",\'Transactions Log\'!D:D,"'+bucket+'",\'Transactions Log\'!G:G,'+mf+',\'Transactions Log\'!H:H,'+yf+'),0)';
