@@ -152,10 +152,11 @@ function buildReference(sh) {
 // =============================================================================
 
 function buildSettings(sh) {
+  sh.getRange(1, 1, 60, 4).breakApart();
   sh.clearContents();
   sh.clearFormats();
-  sh.getRange('A1:B5').clearDataValidations();
-  sh.getRange('A7:B60').clearDataValidations();
+  sh.setConditionalFormatRules([]);
+  sh.getRange('A1:B60').clearDataValidations();
 
   // Ratio values
   sh.getRange('A1').setValue('BUDGET RATIOS');
@@ -197,10 +198,11 @@ function buildSettings(sh) {
 // =============================================================================
 
 function buildLog(sh, settingsSheet) {
+  sh.getRange(1, 1, 10, 9).breakApart();
   sh.clearContents();
   sh.clearFormats();
-  sh.getRange('C2:C200').clearDataValidations();
-  sh.getRange('E2:E200').clearDataValidations();
+  sh.setConditionalFormatRules([]);
+  sh.getRange('A1:I200').clearDataValidations();
 
   // Headers
   sh.getRange('A1:I1').setValues([['Date','Description','Type','Bucket','Category','Amount','Month','Year','Notes']]);
@@ -254,8 +256,11 @@ function buildLog(sh, settingsSheet) {
 // =============================================================================
 
 function buildDashboard(sh) {
+  // Break apart any merged cells from previous runs before clearing
+  sh.getRange(1, 1, 60, 24).breakApart();
   sh.clearContents();
   sh.clearFormats();
+  sh.setConditionalFormatRules([]);
   sh.getRange('B5:B5').clearDataValidations();
 
   // Background
