@@ -143,6 +143,8 @@ function buildReference(sh) {
   sh.getRange(1,1,12,1).setValues([['January'],['February'],['March'],['April'],['May'],['June'],['July'],['August'],['September'],['October'],['November'],['December']]);
   sh.getRange(1,2,3,1).setValues([['Needs'],['Wants'],['Savings & Debt']]);
   sh.getRange(1,3,2,1).setValues([['On Track'],['Over Budget']]);
+  // Column D: uppercase 3-letter month abbreviations used by MATCH formulas
+  sh.getRange(1,4,12,1).setValues([['JAN'],['FEB'],['MAR'],['APR'],['MAY'],['JUN'],['JUL'],['AUG'],['SEP'],['OCT'],['NOV'],['DEC']]);
 }
 
 // =============================================================================
@@ -285,7 +287,7 @@ function buildDashboard(sh) {
   sh.getRange('H7').setValue('SAVINGS & DEBT').setFontWeight('bold').setFontColor(DK_TEXT);
 
   // KPI formulas — using setFormula to avoid locale issues
-  var mf = 'MATCH(UPPER(LEFT($B$5,3)),{"JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"},0)';
+  var mf = 'MATCH(UPPER(LEFT($B$5,3)),Reference!$D$1:$D$12,0)';
   var yf = 'VALUE(RIGHT($B$5,4))';
   function kpif(bucket) {
     return '=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!C:C,"Expense",\'Transactions Log\'!D:D,"'+bucket+'",\'Transactions Log\'!G:G,'+mf+',\'Transactions Log\'!H:H,'+yf+'),0)';
