@@ -207,9 +207,11 @@ function buildLog(sh, settingsSheet) {
   // Headers
   sh.getRange('A1:I1').setValues([['Date','Description','Type','Bucket','Category','Amount','Month','Year','Notes']]);
 
-  // Static values (no formulas yet)
+  // Static values — convert date strings to real Date objects so TEXT() works immediately
   var staticVals = TX.map(function(tx) {
-    return [tx[0], tx[1], tx[2], '', tx[4], tx[5], '', '', ''];
+    var parts = tx[0].split('-');
+    var d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+    return [d, tx[1], tx[2], '', tx[4], tx[5], '', '', ''];
   });
   sh.getRange(2, 1, staticVals.length, 9).setValues(staticVals);
 
