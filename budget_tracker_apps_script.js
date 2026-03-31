@@ -246,9 +246,10 @@ function buildLog(sh, settingsSheet) {
       .setAllowInvalid(true).build()
   );
 
-  // Gradient CF on Amount
+  // CF on Amount: Income rows = green, Expense rows = light red
   sh.setConditionalFormatRules([
-    SpreadsheetApp.newConditionalFormatRule().setGradientMaxpoint(SAGE).setGradientMinpoint(GRN_BG).setRanges([sh.getRange('F2:F200')]).build()
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=$C2="Income"').setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('F2:F200')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=$C2="Expense"').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('F2:F200')]).build()
   ]);
 }
 
@@ -332,8 +333,12 @@ function buildDashboard(sh) {
   sh.getRange(11, 3, 12, 1).setFormulas(incActFs);
   sh.getRange(11, 4, 12, 1).setFormulas(incVarFs);
 
-  // Income formatting
-  sh.getRange(11, 1, 12, 4).setBackgrounds(altBg(12, 4));
+  // Income formatting — alternating MINT / OFF_WHITE for better visibility
+  var incBg = [];
+  for (var i = 0; i < 12; i++) {
+    incBg.push(rep(i % 2 === 0 ? MINT : OFF_WHITE, 4));
+  }
+  sh.getRange(11, 1, 12, 4).setBackgrounds(incBg).setFontColor(DK_TEXT);
   sh.getRange('B11:D23').setNumberFormat('$#,##0.00');
 
   // Total Income row
@@ -425,6 +430,15 @@ function buildDashboard(sh) {
     SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=C7>$T$2').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('C7')]).build(),
     SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=F7>$U$2').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('F7')]).build(),
     SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=I7>$V$2').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('I7')]).build(),
+    // Income variance: positive = green (earned more), negative = red
+    SpreadsheetApp.newConditionalFormatRule().whenNumberGreaterThan(0).setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('D11:D22')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenNumberLessThan(0).setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('D11:D22')]).build(),
+    // Amount Left: positive = green, negative = red
+    SpreadsheetApp.newConditionalFormatRule().whenNumberGreaterThanOrEqualTo(0).setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('T11')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenNumberLessThan(0).setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('T11')]).build(),
+    // Total Income variance
+    SpreadsheetApp.newConditionalFormatRule().whenNumberGreaterThan(0).setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('D23')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenNumberLessThan(0).setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('D23')]).build(),
   ];
   sh.setConditionalFormatRules(rules);
 
