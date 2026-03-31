@@ -1,186 +1,186 @@
-# 50/30/20 Budget Tracker — Handleiding
-### Jouw persoonlijke financiële overzicht in Google Sheets
+# 50/30/20 Budget Tracker — User Guide
+### Your personal finance overview in Google Sheets
 
 ---
 
-## Welkom!
+## Welcome!
 
-Gefeliciteerd met je aankoop van de 50/30/20 Budget Tracker. Dit template helpt je om grip te krijgen op je geld — zonder ingewikkelde formules of financiële kennis. Alles is al voor je ingesteld. Jij hoeft alleen maar je inkomsten en uitgaven in te vullen.
+Thank you for purchasing the 50/30/20 Budget Tracker. This template helps you take control of your money — no complicated formulas or financial knowledge required. Everything is already set up for you. All you need to do is enter your income and expenses.
 
-Deze handleiding legt stap voor stap uit hoe het werkt.
+This guide walks you through everything step by step.
 
 ---
 
-## Wat is de 50/30/20 regel?
+## What is the 50/30/20 rule?
 
-De 50/30/20 regel is een simpele methode om je geld te verdelen:
+The 50/30/20 rule is a simple method for dividing your money:
 
-| Categorie | Percentage | Wat valt hieronder? |
+| Category | Percentage | What belongs here? |
 |---|---|---|
-| **Needs (behoeften)** | 50% | Huur, boodschappen, verzekeringen, gas/water/licht |
-| **Wants (wensen)** | 30% | Uit eten, kleding, Netflix, hobby's |
-| **Savings & Debt (sparen)** | 20% | Spaargeld, schulden aflossen, pensioen |
+| **Needs** | 50% | Rent, groceries, insurance, utilities |
+| **Wants** | 30% | Dining out, clothing, Netflix, hobbies |
+| **Savings & Debt** | 20% | Savings, paying off debt, retirement |
 
-**Voorbeeld:** Verdien je €3.000 per maand netto?
-- €1.500 gaat naar vaste lasten
-- €900 mag je besteden aan leuke dingen
-- €600 zet je opzij of los je af
-
----
-
-## Stap 1 — Een kopie maken
-
-> ⚠️ Bewerk nooit het originele bestand. Maak altijd eerst een eigen kopie.
-
-1. Open de link die je bij je aankoop hebt ontvangen
-2. Klik bovenaan op **Bestand → Kopie maken**
-3. Geef het een naam (bijv. "Budget 2026 - Pelle")
-4. Klik op **Kopie maken**
-
-Je hebt nu je eigen versie die je vrij kunt aanpassen.
+**Example:** You earn $3,000 per month after tax?
+- $1,500 goes toward fixed expenses
+- $900 is yours to spend on fun things
+- $600 goes into savings or debt repayment
 
 ---
 
-## Stap 2 — De tabbladen begrijpen
+## Step 1 — Make a copy
 
-Onderaan het scherm zie je vier tabbladen:
+> ⚠️ Never edit the original file. Always make your own copy first.
+
+1. Open the link you received with your purchase
+2. Click **File → Make a copy**
+3. Give it a name (e.g. "Budget 2026 - My Name")
+4. Click **Make a copy**
+
+You now have your own version that you can freely edit.
+
+---
+
+## Step 2 — Understanding the tabs
+
+At the bottom of the screen you will see four tabs:
 
 ### 📊 Dashboard
-Dit is je hoofdpagina. Hier zie je in één oogopslag:
-- Hoeveel je hebt uitgegeven aan Needs, Wants en Savings
-- Of je binnen je budget zit
-- Hoeveel geld je nog over hebt
+This is your main page. Here you can see at a glance:
+- How much you've spent on Needs, Wants and Savings
+- Whether you're staying within your budget
+- How much money you have left
 
 ### 📋 Transactions Log
-Hier voer je al je inkomsten en uitgaven in. Elke keer dat je iets uitgeeft of ontvangt, voeg je hier een regel toe.
+This is where you enter all your income and expenses. Every time you spend or receive money, you add a new row here.
 
 ### ⚙️ Settings
-Hier stel je in:
-- Welke percentages je wilt hanteren (standaard 50/30/20)
-- Welke categorieën bij Needs, Wants of Savings horen
+Here you can set:
+- Which percentages you want to use (default is 50/30/20)
+- Which categories belong to Needs, Wants or Savings
 
 ### 🔒 Reference
-Dit tabblad staat verborgen en bevat achtergrondgegevens voor de formules. Je hoeft hier niets aan te doen.
+This tab is hidden and contains background data for the formulas. You don't need to do anything here.
 
 ---
 
-## Stap 3 — Basisinstellingen aanpassen
+## Step 3 — Adjust basic settings
 
-Ga naar het tabblad **Settings**.
+Go to the **Settings** tab.
 
-**Valuta instellen:**
-Bovenaan zie je "Set Currency". Verander de $ naar € (of een andere valuta naar keuze).
+**Set your currency:**
+At the top you'll see "Set Currency". Change the $ to € or any other currency symbol you prefer.
 
-**Percentages aanpassen (optioneel):**
-Wil je andere percentages dan 50/30/20? Pas de getallen aan in de gele vakjes. Zorg dat ze altijd optellen tot 100.
+**Adjust percentages (optional):**
+Want different percentages than 50/30/20? Change the numbers in the yellow fields. Make sure they always add up to 100.
 
-**Categorieën bekijken:**
-Je ziet een lijst met categorieën ingedeeld per bucket (Needs / Wants / Savings). Je kunt namen aanpassen naar wat bij jouw situatie past.
+**Review categories:**
+You'll see a list of categories organised by bucket (Needs / Wants / Savings). You can rename them to fit your personal situation.
 
 ---
 
-## Stap 4 — Je eerste transactie invoeren
+## Step 4 — Enter your first transaction
 
-Ga naar het tabblad **Transactions Log**.
+Go to the **Transactions Log** tab.
 
-Vul per regel het volgende in:
+Fill in each row as follows:
 
-| Kolom | Wat invullen | Voorbeeld |
+| Column | What to enter | Example |
 |---|---|---|
-| **Date** | Datum van de transactie | 15-01-2026 |
-| **Description** | Korte omschrijving | Weekboodschappen |
-| **Type** | Kies uit de lijst: Income of Expense | Expense |
-| **Bucket** | Kies: Needs, Wants of Savings & Debt | Needs |
-| **Category** | Kies een categorie uit de lijst | Groceries |
-| **Amount** | Bedrag (altijd positief) | 85 |
+| **Date** | Date of the transaction | 01/15/2026 |
+| **Description** | Short description | Weekly groceries |
+| **Type** | Choose from the list: Income or Expense | Expense |
+| **Bucket** | Choose: Needs, Wants or Savings & Debt | Needs |
+| **Category** | Choose a category from the list | Groceries |
+| **Amount** | Amount (always positive) | 85 |
 
-> 💡 **Tip:** Gebruik de dropdown lijsten in de kolommen Type, Bucket en Category. Klik op het vakje en je ziet een pijltje verschijnen.
+> 💡 **Tip:** Use the dropdown lists in the Type, Bucket and Category columns. Click on a cell and a small arrow will appear.
 
-De kolommen **Month** en **Bucket (auto)** worden automatisch ingevuld — die hoef je niet aan te raken.
-
----
-
-## Stap 5 — Het Dashboard bekijken
-
-Ga naar het tabblad **Dashboard**.
-
-**Maand selecteren:**
-Bovenaan zie je "Selected Month" met een dropdown menu. Kies de maand die je wilt bekijken. Alle bedragen worden automatisch bijgewerkt.
-
-**Wat je ziet:**
-
-- **NEEDS / WANTS / SAVINGS & DEBT** (grote bedragen bovenaan): dit zijn je werkelijke uitgaven voor die maand
-- **Income Summary**: al je inkomstenbronnen met verwacht vs. werkelijk bedrag
-- **Needs Summary & Wants Summary**: al je uitgaven per categorie
-- **Progress**: hoe ver je bent als percentage van je budget
-- **Bar**: een visuele balk — groen = binnen budget, rood = over budget
-- **Amount Left**: hoeveel geld je nog over hebt om uit te geven
-
-**Kleurcodering:**
-- 🟢 **Groen** = positief / binnen budget
-- 🔴 **Rood** = negatief / over budget
-- 🟡 **Geel** = let op, je zit bijna op je limiet
+The **Month** and **Bucket (auto)** columns are filled in automatically — you don't need to touch those.
 
 ---
 
-## Stap 6 — Verwacht bedrag instellen
+## Step 5 — Reading the Dashboard
 
-De **Progress** en **Bar** kolommen werken alleen als je een verwacht bedrag invult.
+Go to the **Dashboard** tab.
 
-Ga naar **Dashboard → Needs Summary of Wants Summary** en vul bij jouw categorieën een bedrag in onder **Expected ($)**.
+**Selecting a month:**
+At the top you'll see "Selected Month" with a dropdown menu. Choose the month you want to view. All amounts update automatically.
 
-**Voorbeeld Rent:**
-- Expected: €800
-- Actual: €725 → Progress: 91% → groene balk ✓
-- Actual: €850 → Progress: 106% → rode balk ✗
+**What you see:**
 
----
+- **NEEDS / WANTS / SAVINGS & DEBT** (large numbers at the top): your actual spending for that month
+- **Income Summary**: all your income sources with expected vs. actual amounts
+- **Needs Summary & Wants Summary**: all your expenses per category
+- **Progress**: how far along you are as a percentage of your budget
+- **Bar**: a visual bar — green = within budget, red = over budget
+- **Amount Left**: how much money you have left to spend
 
-## Veelgestelde vragen
-
-**Mijn bedragen staan op $0,00 terwijl ik wel transacties heb ingevoerd.**
-Controleer of de datum in Transactions Log correct is ingevuld én of de geselecteerde maand op het Dashboard overeenkomt met die datum.
-
-**Ik zie #ERROR! staan in een cel.**
-Druk op de cel en druk op **Cmd+R** (Mac) of **F5** (Windows) om de formule te vernieuwen. Als het probleem blijft, controleer dan of je de cel per ongeluk hebt bewerkt.
-
-**Kan ik categorieën toevoegen?**
-Ja. Ga naar **Settings** en voeg een naam toe onderaan een van de lijsten. Vergeet niet om ook de kolom **Category** in het Dashboard bij te werken als je die categorie wilt volgen.
-
-**Kan ik meerdere jaren bijhouden?**
-Ja. Maak voor elk jaar een nieuwe kopie van het template via **Bestand → Kopie maken**.
-
-**De voortgangsbalk verschijnt niet.**
-Je moet eerst een bedrag invullen bij **Expected** voor die categorie. Zonder verwacht bedrag weet het systeem niet hoe ver je bent.
+**Colour coding:**
+- 🟢 **Green** = positive / within budget
+- 🔴 **Red** = negative / over budget
+- 🟡 **Yellow** = warning, you're close to your limit
 
 ---
 
-## Tips voor starters
+## Step 6 — Setting an expected amount
 
-✅ **Voer transacties meteen in** — hoe langer je wacht, hoe makkelijker je iets vergeet
+The **Progress** and **Bar** columns only work when you've filled in an expected amount.
 
-✅ **Check je Dashboard wekelijks** — 5 minuten per week is genoeg om grip te houden
+Go to **Dashboard → Needs Summary or Wants Summary** and enter an amount under **Expected ($)** for your categories.
 
-✅ **Wees eerlijk met jezelf** — een kop koffie van €4,50 is ook een uitgave
-
-✅ **Begin realistisch** — zet bij Expected bedragen in die je echt haalt, niet wat je hoopt
-
-✅ **Gebruik Rollover** — heb je geld overgehouden? Zet dat bedrag in het Rollover-vak zodat het meerekent voor de volgende maand
-
----
-
-## Technische vereisten
-
-- Google account (gratis)
-- Google Sheets (gratis, werkt in de browser)
-- Geen installatie nodig
+**Example for Rent:**
+- Expected: $800
+- Actual: $725 → Progress: 91% → green bar ✓
+- Actual: $850 → Progress: 106% → red bar ✗
 
 ---
 
-## Vragen of problemen?
+## Frequently asked questions
 
-Stuur een berichtje via Etsy. We helpen je graag verder!
+**My amounts show $0.00 even though I've entered transactions.**
+Check that the date in the Transactions Log is filled in correctly and that the selected month on the Dashboard matches that date.
+
+**I see #ERROR! in a cell.**
+Click on the cell and press **Cmd+R** (Mac) or **F5** (Windows) to refresh the formula. If the problem persists, check whether you accidentally edited the cell.
+
+**Can I add categories?**
+Yes. Go to **Settings** and add a name at the bottom of one of the lists. If you want to track that category separately on the Dashboard, also add it there.
+
+**Can I track multiple years?**
+Yes. Make a new copy of the template for each year via **File → Make a copy**.
+
+**The progress bar doesn't appear.**
+You need to fill in an **Expected** amount for that category first. Without an expected amount, the system doesn't know how far along you are.
 
 ---
 
-*50/30/20 Budget Tracker • Versie 1.0 • 2026*
+## Tips for getting started
+
+✅ **Log transactions right away** — the longer you wait, the easier it is to forget something
+
+✅ **Check your Dashboard weekly** — 5 minutes a week is enough to stay on track
+
+✅ **Be honest with yourself** — a $4.50 coffee is still an expense
+
+✅ **Start realistically** — set Expected amounts you can actually hit, not just what you hope for
+
+✅ **Use Rollover** — have money left over? Enter that amount in the Rollover field so it carries over to the next month
+
+---
+
+## Technical requirements
+
+- Google account (free)
+- Google Sheets (free, runs in your browser)
+- No installation needed
+
+---
+
+## Questions or issues?
+
+Send a message through Etsy and we'll be happy to help!
+
+---
+
+*50/30/20 Budget Tracker • Version 1.0 • 2026*
