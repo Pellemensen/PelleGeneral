@@ -162,7 +162,7 @@ function buildSettings(sh) {
   sh.getRange('A1').setValue('BUDGET RATIOS');
   sh.getRange('A2:B4').setValues([['Needs %',50],['Wants %',30],['Savings & Debt %',20]]);
   sh.getRange('A5').setValue('Ratio check');
-  sh.getRange('B5').setFormula('=IF(B2+B3+B4=100,"✓ Ratios OK","⚠ Must sum to 100%")');
+  sh.getRange('B5').setFormula('=IF(B2+B3+B4=100;"✓ Ratios OK";"⚠ Must sum to 100%")');
 
   // Category mapping
   sh.getRange('A7:B7').setValues([['Category Name','Bucket']]);
@@ -220,8 +220,8 @@ function buildLog(sh, settingsSheet) {
   var bucketFs = [], monthFs = [];
   TX.forEach(function(_, i) {
     var r = i + 2;
-    bucketFs.push(['=IFERROR(VLOOKUP(E'+r+',Settings!$A$8:$B$55,2,FALSE),"")']);
-    monthFs.push(['=IF(A'+r+'="","",TEXT(A'+r+',"mmm yyyy"))']);
+    bucketFs.push(['=IFERROR(VLOOKUP(E'+r+';Settings!$A$8:$B$55;2;FALSE);"")']);
+    monthFs.push(['=IF(A'+r+'="";"";TEXT(A'+r+';"mmm yyyy"))']);
   });
   sh.getRange(2, 4, bucketFs.length, 1).setFormulas(bucketFs);
   sh.getRange(2, 7, monthFs.length,  1).setFormulas(monthFs);
@@ -294,7 +294,7 @@ function buildDashboard(sh) {
 
   // KPI formulas — G column in Transactions Log stores "jan 2026" text, match directly vs $B$5
   function kpif(bucket) {
-    return '=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!C:C,"Expense",\'Transactions Log\'!D:D,"'+bucket+'",\'Transactions Log\'!G:G,$B$5),0)';
+    return '=IFERROR(SUMIFS(\'Transactions Log\'!F:F;\'Transactions Log\'!C:C;"Expense";\'Transactions Log\'!D:D;"'+bucket+'";\'Transactions Log\'!G:G;$B$5);0)';
   }
   var mf = '$B$5';  // used in income/needs/wants formulas below
   sh.getRange('C7').setFormula(kpif('Needs')).setFontSize(18).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('$#,##0.00');
@@ -326,7 +326,7 @@ function buildDashboard(sh) {
   var incActFs = [], incVarFs = [];
   INCOME_CATS.forEach(function(_, i) {
     var r = i + 11;
-    incActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,A'+r+',\'Transactions Log\'!C:C,"Income",\'Transactions Log\'!G:G,$B$5),0)']);
+    incActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F;\'Transactions Log\'!E:E;A'+r+';\'Transactions Log\'!C:C;"Income";\'Transactions Log\'!G:G;$B$5);0)']);
     incVarFs.push(['=C'+r+'-B'+r]);
   });
   sh.getRange(11, 3, 12, 1).setFormulas(incActFs);
@@ -352,9 +352,9 @@ function buildDashboard(sh) {
   var nActFs = [], nPctFs = [], nBarFs = [];
   NEEDS_CATS.forEach(function(_, i) {
     var r = i + 11;
-    nActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,F'+r+',\'Transactions Log\'!G:G,$B$5),0)']);
-    nPctFs.push(['=IFERROR(I'+r+'/H'+r+',0)']);
-    nBarFs.push(['=IF(H'+r+'=0,"",SPARKLINE(I'+r+'/H'+r+',{"charttype","bar";"max",1;"color1","#5C8C6E";"color2","#F2DDD8"}))']);
+    nActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F;\'Transactions Log\'!E:E;F'+r+';\'Transactions Log\'!G:G;$B$5);0)']);
+    nPctFs.push(['=IFERROR(I'+r+'/H'+r+';0)']);
+    nBarFs.push(['=IF(H'+r+'=0;"";SPARKLINE(I'+r+'/H'+r+'))']);
   });
   sh.getRange(11, 9,  12, 1).setFormulas(nActFs);
   sh.getRange(11, 10, 12, 1).setFormulas(nPctFs);
@@ -366,7 +366,7 @@ function buildDashboard(sh) {
   sh.getRange('J11:J23').setNumberFormat('0%');
 
   // Needs total row
-  sh.getRange(23, 6, 1, 6).setValues([['TOTAL NEEDS','','=SUM(H11:H22)','=SUM(I11:I22)','=IFERROR(I23/H23,0)','']]).setBackground(LT_SAGE).setFontColor(W).setFontWeight('bold');
+  sh.getRange(23, 6, 1, 6).setValues([['TOTAL NEEDS','','=SUM(H11:H22)','=SUM(I11:I22)','=IFERROR(I23/H23;0)','']]).setBackground(LT_SAGE).setFontColor(W).setFontWeight('bold');
 
   // ── Wants static values ──
   var wantsStatic = WANTS_CATS.map(function(cat){ return [cat,'',0]; });
@@ -376,9 +376,9 @@ function buildDashboard(sh) {
   var wActFs = [], wPctFs = [], wBarFs = [];
   WANTS_CATS.forEach(function(_, i) {
     var r = i + 11;
-    wActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,M'+r+',\'Transactions Log\'!G:G,$B$5),0)']);
-    wPctFs.push(['=IFERROR(P'+r+'/O'+r+',0)']);
-    wBarFs.push(['=IF(O'+r+'=0,"",SPARKLINE(P'+r+'/O'+r+',{"charttype","bar";"max",1;"color1","#D98C8C";"color2","#F2DDD8"}))']);
+    wActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F;\'Transactions Log\'!E:E;M'+r+';\'Transactions Log\'!G:G;$B$5);0)']);
+    wPctFs.push(['=IFERROR(P'+r+'/O'+r+';0)']);
+    wBarFs.push(['=IF(O'+r+'=0;"";SPARKLINE(P'+r+'/O'+r+'))']);
   });
   sh.getRange(11, 16, 12, 1).setFormulas(wActFs);
   sh.getRange(11, 17, 12, 1).setFormulas(wPctFs);
@@ -390,14 +390,14 @@ function buildDashboard(sh) {
   sh.getRange('Q11:Q23').setNumberFormat('0%');
 
   // Wants total row
-  sh.getRange(23, 13, 1, 6).setValues([['TOTAL WANTS','','=SUM(O11:O22)','=SUM(P11:P22)','=IFERROR(P23/O23,0)','']]).setBackground(LT_SAGE).setFontColor(W).setFontWeight('bold');
+  sh.getRange(23, 13, 1, 6).setValues([['TOTAL WANTS','','=SUM(O11:O22)','=SUM(P11:P22)','=IFERROR(P23/O23;0)','']]).setBackground(LT_SAGE).setFontColor(W).setFontWeight('bold');
 
   // ── Amount Left panel ──
   sh.getRange('T10:W10').merge().setValue('AMOUNT LEFT').setBackground(LT_SAGE).setFontColor(W).setFontWeight('bold');
   sh.getRange('T11').setFormula('=B26-(SUM(I11:I22)+SUM(P11:P22))').setFontSize(24).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('$#,##0.00');
   sh.getRange('T13').setValue('PERCENTAGE LEFT').setFontWeight('bold').setFontColor(DK_TEXT);
-  sh.getRange('T14').setFormula('=IFERROR(T11/B26,0)').setFontSize(14).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('0.00%');
-  sh.getRange('T15').setFormula('=IF(T14>0.1,"✓ Doing great! You are right on track.","⚠ Watch your spending!")').setFontWeight('bold').setFontColor(DK_TEXT);
+  sh.getRange('T14').setFormula('=IFERROR(T11/B26;0)').setFontSize(14).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('0.00%');
+  sh.getRange('T15').setFormula('=IF(T14>0.1;"✓ Doing great! You are right on track.";"⚠ Watch your spending!")').setFontWeight('bold').setFontColor(DK_TEXT);
 
   // ── Column widths ──
   var widths = [160,90,90,80,16,150,70,90,90,60,100,16,150,70,90,90,60,100,16,160,120,120,120];
@@ -412,14 +412,14 @@ function buildDashboard(sh) {
   // ── Conditional formatting ──
   var rules = [
     // Needs actual: over budget
-    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(H11<>0,I11>H11)').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('I11:I22')]).build(),
-    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(H11<>0,I11<=H11)').setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('I11:I22')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(H11<>0;I11>H11)').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('I11:I22')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(H11<>0;I11<=H11)').setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('I11:I22')]).build(),
     // Wants actual: over budget
-    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(O11<>0,P11>O11)').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('P11:P22')]).build(),
-    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(O11<>0,P11<=O11)').setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('P11:P22')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(O11<>0;P11>O11)').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('P11:P22')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(O11<>0;P11<=O11)').setBackground(GRN_BG).setFontColor(GRN_TXT).setRanges([sh.getRange('P11:P22')]).build(),
     // Progress %
     SpreadsheetApp.newConditionalFormatRule().whenNumberGreaterThan(1).setBackground(RED_BG).setRanges([sh.getRange('J11:J22')]).build(),
-    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(J11>=0.75,J11<=1)').setBackground(YLW_BG).setRanges([sh.getRange('J11:J22')]).build(),
+    SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=AND(J11>=0.75;J11<=1)').setBackground(YLW_BG).setRanges([sh.getRange('J11:J22')]).build(),
     SpreadsheetApp.newConditionalFormatRule().whenNumberLessThan(0.75).setBackground(GRN_BG).setRanges([sh.getRange('J11:J22')]).build(),
     // KPI vs targets
     SpreadsheetApp.newConditionalFormatRule().whenFormulaSatisfied('=C7>$T$2').setBackground(RED_BG).setFontColor(RED_TXT).setRanges([sh.getRange('C7')]).build(),
