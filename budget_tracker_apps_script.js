@@ -397,7 +397,7 @@ function buildDashboard(sh) {
   sh.getRange('T11').setFormula('=B26-(SUM(I11:I22)+SUM(P11:P22))').setFontSize(24).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('$#,##0.00');
   sh.getRange('T13').setValue('PERCENTAGE LEFT').setFontWeight('bold').setFontColor(DK_TEXT);
   sh.getRange('T14').setFormula('=IFERROR(T11/B26;0)').setFontSize(14).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('0.00%');
-  sh.getRange('T15').setFormula('=IF(T14>0.1;"✓ Doing great! You are right on track.";"⚠ Watch your spending!")').setFontWeight('bold').setFontColor(DK_TEXT);
+  sh.getRange('T15').setFormula('=IF(T14>0,1;"✓ Doing great! You are right on track.";"⚠ Watch your spending!")').setFontWeight('bold').setFontColor(DK_TEXT);
 
   // ── Column widths ──
   var widths = [160,90,90,80,16,150,70,90,90,60,100,16,150,70,90,90,60,100,16,160,120,120,120];
