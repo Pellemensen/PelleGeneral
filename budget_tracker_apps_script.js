@@ -214,16 +214,15 @@ function buildLog(sh, settingsSheet) {
   sh.getRange(2, 1, staticVals.length, 9).setValues(staticVals);
 
   // Formulas — set separately so locale doesn't affect them
-  var bucketFs = [], monthFs = [], yearFs = [];
+  // G column stores "jan 2026" text so SUMIFS can match directly against B5
+  var bucketFs = [], monthFs = [];
   TX.forEach(function(_, i) {
     var r = i + 2;
     bucketFs.push(['=IFERROR(VLOOKUP(E'+r+',Settings!$A$8:$B$55,2,FALSE),"")']);
-    monthFs.push(['=IF(A'+r+'="","",MONTH(A'+r+'))']);
-    yearFs.push(['=IF(A'+r+'="","",YEAR(A'+r+'))']);
+    monthFs.push(['=IF(A'+r+'="","",TEXT(A'+r+',"mmm yyyy"))']);
   });
   sh.getRange(2, 4, bucketFs.length, 1).setFormulas(bucketFs);
   sh.getRange(2, 7, monthFs.length,  1).setFormulas(monthFs);
-  sh.getRange(2, 8, yearFs.length,   1).setFormulas(yearFs);
 
   // ── Format in bulk ──
   sh.getRange('A1:I1').setBackground(SAGE).setFontColor(W).setFontWeight('bold').setHorizontalAlignment('center');
@@ -291,12 +290,11 @@ function buildDashboard(sh) {
   sh.getRange('E7').setValue('WANTS').setFontWeight('bold').setFontColor(DK_TEXT);
   sh.getRange('H7').setValue('SAVINGS & DEBT').setFontWeight('bold').setFontColor(DK_TEXT);
 
-  // KPI formulas — using setFormula to avoid locale issues
-  var mf = 'MATCH(UPPER(LEFT($B$5,3)),Reference!$D$1:$D$12,0)';
-  var yf = 'VALUE(RIGHT($B$5,4))';
+  // KPI formulas — G column in Transactions Log stores "jan 2026" text, match directly vs $B$5
   function kpif(bucket) {
-    return '=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!C:C,"Expense",\'Transactions Log\'!D:D,"'+bucket+'",\'Transactions Log\'!G:G,'+mf+',\'Transactions Log\'!H:H,'+yf+'),0)';
+    return '=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!C:C,"Expense",\'Transactions Log\'!D:D,"'+bucket+'",\'Transactions Log\'!G:G,$B$5),0)';
   }
+  var mf = '$B$5';  // used in income/needs/wants formulas below
   sh.getRange('C7').setFormula(kpif('Needs')).setFontSize(18).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('$#,##0.00');
   sh.getRange('F7').setFormula(kpif('Wants')).setFontSize(18).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('$#,##0.00');
   sh.getRange('I7').setFormula(kpif('Savings & Debt')).setFontSize(18).setFontWeight('bold').setFontColor(DK_TEXT).setNumberFormat('$#,##0.00');
@@ -326,7 +324,7 @@ function buildDashboard(sh) {
   var incActFs = [], incVarFs = [];
   INCOME_CATS.forEach(function(_, i) {
     var r = i + 11;
-    incActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,A'+r+',\'Transactions Log\'!C:C,"Income",\'Transactions Log\'!G:G,'+mf+',\'Transactions Log\'!H:H,'+yf+'),0)']);
+    incActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,A'+r+',\'Transactions Log\'!C:C,"Income",\'Transactions Log\'!G:G,$B$5),0)']);
     incVarFs.push(['=C'+r+'-B'+r]);
   });
   sh.getRange(11, 3, 12, 1).setFormulas(incActFs);
@@ -352,7 +350,7 @@ function buildDashboard(sh) {
   var nActFs = [], nPctFs = [], nBarFs = [];
   NEEDS_CATS.forEach(function(_, i) {
     var r = i + 11;
-    nActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,F'+r+',\'Transactions Log\'!G:G,'+mf+',\'Transactions Log\'!H:H,'+yf+'),0)']);
+    nActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,F'+r+',\'Transactions Log\'!G:G,$B$5),0)']);
     nPctFs.push(['=IFERROR(I'+r+'/H'+r+',0)']);
     nBarFs.push(['=IF(H'+r+'=0,"",SPARKLINE(I'+r+'/H'+r+',{"charttype","bar";"max",1;"color1","#5C8C6E";"color2","#F2DDD8"}))']);
   });
@@ -376,7 +374,7 @@ function buildDashboard(sh) {
   var wActFs = [], wPctFs = [], wBarFs = [];
   WANTS_CATS.forEach(function(_, i) {
     var r = i + 11;
-    wActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,M'+r+',\'Transactions Log\'!G:G,'+mf+',\'Transactions Log\'!H:H,'+yf+'),0)']);
+    wActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F,\'Transactions Log\'!E:E,M'+r+',\'Transactions Log\'!G:G,$B$5),0)']);
     wPctFs.push(['=IFERROR(P'+r+'/O'+r+',0)']);
     wBarFs.push(['=IF(O'+r+'=0,"",SPARKLINE(P'+r+'/O'+r+',{"charttype","bar";"max",1;"color1","#D98C8C";"color2","#F2DDD8"}))']);
   });
