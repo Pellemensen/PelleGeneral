@@ -359,7 +359,7 @@ function buildDashboard(sh) {
     var r = i + 11;
     nActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F;\'Transactions Log\'!E:E;F'+r+';\'Transactions Log\'!G:G;$B$5);0)']);
     nPctFs.push(['=IFERROR(I'+r+'/H'+r+';0)']);
-    nBarFs.push(['=IF(H'+r+'=0;"";SPARKLINE(I'+r+'/H'+r+';{"charttype"\\"bar";"max"\\1;"color1"\\"#5C8C6E"}))']);
+    nBarFs.push(['=IF(H'+r+'=0;"";IF(I'+r+'/H'+r+'>1;SPARKLINE(1;{"charttype"\\"bar";"max"\\1;"color1"\\"#C0392B"});SPARKLINE(I'+r+'/H'+r+';{"charttype"\\"bar";"max"\\1;"color1"\\"#5C8C6E"})))']);
   });
   sh.getRange(11, 9,  12, 1).setFormulas(nActFs);
   sh.getRange(11, 10, 12, 1).setFormulas(nPctFs);
@@ -383,7 +383,7 @@ function buildDashboard(sh) {
     var r = i + 11;
     wActFs.push(['=IFERROR(SUMIFS(\'Transactions Log\'!F:F;\'Transactions Log\'!E:E;M'+r+';\'Transactions Log\'!G:G;$B$5);0)']);
     wPctFs.push(['=IFERROR(P'+r+'/O'+r+';0)']);
-    wBarFs.push(['=IF(O'+r+'=0;"";SPARKLINE(P'+r+'/O'+r+';{"charttype"\\"bar";"max"\\1;"color1"\\"#D98C8C"}))']);
+    wBarFs.push(['=IF(O'+r+'=0;"";IF(P'+r+'/O'+r+'>1;SPARKLINE(1;{"charttype"\\"bar";"max"\\1;"color1"\\"#C0392B"});SPARKLINE(P'+r+'/O'+r+';{"charttype"\\"bar";"max"\\1;"color1"\\"#5C8C6E"})))']);
   });
   sh.getRange(11, 16, 12, 1).setFormulas(wActFs);
   sh.getRange(11, 17, 12, 1).setFormulas(wPctFs);
