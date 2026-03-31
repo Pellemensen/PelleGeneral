@@ -428,7 +428,21 @@ function buildDashboard(sh) {
   ];
   sh.setConditionalFormatRules(rules);
 
-  // ── Charts ──
+  // Charts are in a separate function — run addCharts() after this completes
+}
+
+// =============================================================================
+// CHARTS — run this separately after createBudgetTracker() finishes
+// =============================================================================
+
+function addCharts() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName('Dashboard');
+  if (!sh) { SpreadsheetApp.getUi().alert('Run createBudgetTracker() first.'); return; }
+
+  // Remove existing charts to avoid duplicates
+  sh.getCharts().forEach(function(c) { sh.removeChart(c); });
+
   var chart1 = sh.newChart()
     .setChartType(Charts.ChartType.BAR)
     .addRange(sh.getRange('A10:C22'))
@@ -451,4 +465,6 @@ function buildDashboard(sh) {
     .setOption('width',300).setOption('height',260)
     .build();
   sh.insertChart(chart2);
+
+  SpreadsheetApp.getUi().alert('✓ Grafieken toegevoegd!');
 }
